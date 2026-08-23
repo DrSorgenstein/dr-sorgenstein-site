@@ -1,0 +1,15 @@
+name = "dr-sorgenstein-ai"
+main = "worker.js"
+compatibility_date = "2026-08-23"
+
+# Set this after your GitHub Pages URL is known.
+# [vars]
+# ALLOWED_ORIGIN = "https://YOUR-USERNAME.github.io"
+
+# Create a KV namespace:
+#   wrangler kv namespace create SUBSCRIBERS
+# Then paste the returned namespace id below and uncomment:
+#
+# [[kv_namespaces]]
+# binding = "SUBSCRIBERS"
+# id = "YOUR_KV_NAMESPACE_ID"

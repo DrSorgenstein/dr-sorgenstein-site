@@ -1,0 +1,5 @@
+Copyright (c) 2026 Christopher Sorge / Dr Sorgenstein.
+
+Website source files in this repository may be used and modified by the copyright holder.
+No license is granted to third parties to reuse Dr Sorgenstein branding, biography, music,
+artwork, likeness, or promotional identity without permission.

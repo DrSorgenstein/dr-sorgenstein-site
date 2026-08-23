@@ -1,0 +1,13 @@
+# Local Cloudflare configuration / tooling
+worker/.wrangler/
+worker/node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
