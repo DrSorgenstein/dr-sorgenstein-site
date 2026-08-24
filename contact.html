@@ -1,102 +1,122 @@
-/* ============================================================
-   Dr Sorgenstein — shared site stylesheet
-   Base styles for privacy.html / contact.html, plus the
-   contact form styles.
-   ============================================================ */
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact | Dr Sorgenstein</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css"></head>
+<body>
+<main>
 
-* { box-sizing: border-box; }
+<section class="section" id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-kicker">CONTACT</div>
+      <h2>Get in touch</h2>
+      <div class="contact-lede">Press, licensing, collaboration, or a note about the music — everything routes to the same inbox. Expect a reply within a few days.</div>
+      <div class="contact-notes">
+        <div><span>&mdash;</span><span>No address is published here; the form delivers directly.</span></div>
+        <div><span>&mdash;</span><span>Nothing you send is stored in this website.</span></div>
+      </div>
+    </div>
 
-body {
-  margin: 0;
-  background: #06040c;
-  color: #ece7f3;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-}
+    <form id="contact-form" novalidate="novalidate">
+      <label>
+        <span>NAME *</span>
+        <input type="text" name="name" required="required" placeholder="Your name">
+      </label>
+      <label>
+        <span>EMAIL *</span>
+        <input type="email" name="email" required="required" placeholder="you@domain.com">
+      </label>
+      <label>
+        <span>PHONE</span>
+        <input type="tel" name="phone" placeholder="Optional">
+      </label>
+      <label>
+        <span>ORGANIZATION</span>
+        <input type="text" name="organization" placeholder="Label, outlet, venue">
+      </label>
+      <label>
+        <span>REASON *</span>
+        <select name="reason" required="required">
+          <option value="">Select one&hellip;</option>
+          <option value="Press or interview">Press or interview</option>
+          <option value="Licensing or sync">Licensing or sync</option>
+          <option value="Collaboration">Collaboration</option>
+          <option value="Booking">Booking</option>
+          <option value="Fan message">Fan message</option>
+          <option value="Something else">Something else</option>
+        </select>
+      </label>
+      <label>
+        <span>SUBJECT *</span>
+        <input type="text" name="subject" required="required" placeholder="One line">
+      </label>
+      <label class="full">
+        <span>MESSAGE *</span>
+        <textarea name="message" required="required" rows="7" placeholder="What's this about?"></textarea>
+      </label>
 
-a { color: #7fe6d9; text-decoration: none; }
-a:hover { color: #f5c97a; }
+      <div class="full contact-actions">
+        <button type="submit">SEND MESSAGE</button>
+        <div class="contact-status" id="contact-status" role="status" aria-live="polite"></div>
+      </div>
 
-.section {
-  position: relative;
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 90px 32px 110px;
-}
+      <div class="full contact-fine">
+        Submissions are handled by a third-party form service and delivered by email. See the <a href="privacy.html">privacy notice</a>.
+      </div>
+    </form>
+  </div>
+  <p style="margin-top:40px"><a class="btn" href="index.html">&larr; Back to site</a></p>
+</section>
 
-.section-kicker {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: .22em;
-  color: #7fe6d9;
-  margin-bottom: 22px;
-}
+<script>
+(function () {
+  var ENDPOINT = "https://formspree.io/f/maewzkde";
 
-.section h2 {
-  font-size: clamp(30px, 5vw, 52px);
-  line-height: 1.05;
-  font-weight: 300;
-  letter-spacing: -.02em;
-  margin: 0 0 24px;
-  font-family: 'Cormorant Garamond', serif;
-}
+  var form = document.getElementById("contact-form");
+  var status = document.getElementById("contact-status");
+  if (!form) return;
+  var button = form.querySelector("button[type=submit]");
 
-.prose p {
-  margin: 0 0 18px;
-  line-height: 1.75;
-  color: rgba(236, 231, 243, .72);
-}
-.prose p:last-child { margin-bottom: 0; }
+  function say(text, color) {
+    status.textContent = text;
+    status.style.color = color;
+  }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  min-height: 46px;
-  padding: 0 22px;
-  border-radius: 999px;
-  border: 1px solid rgba(127, 230, 217, .18);
-  background: transparent;
-  color: #ece7f3;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12.5px;
-  letter-spacing: .12em;
-  transition: border-color .18s, color .18s;
-}
-.btn:hover { border-color: #7fe6d9; color: #7fe6d9; }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      say("Please complete the required fields.", "oklch(0.78 0.14 85)");
+      form.reportValidity();
+      return;
+    }
 
-/* ---------------- Contact form ---------------- */
+    var data = new FormData(form);
+    data.set("_replyto", data.get("email") || "");
+    data.set("_subject", "[" + (data.get("reason") || "Website") + "] " + (data.get("subject") || ""));
 
-#contact { --accent: oklch(0.76 0.15 62); background:#0c0b0a; color:#efe9e1; font-family:'Space Grotesk',Helvetica,sans-serif; padding:110px 32px 130px; display:flex; justify-content:center; }
-#contact .contact-grid { width:100%; max-width:1080px; display:grid; grid-template-columns:minmax(240px,340px) 1fr; gap:72px; align-items:start; }
-#contact .section-kicker { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.22em; color:var(--accent); margin-bottom:22px; }
-#contact h2 { font-size:52px; line-height:.98; font-weight:700; letter-spacing:-.02em; margin:0 0 24px; text-wrap:balance; }
-#contact .contact-lede { font-size:16px; line-height:1.65; color:#a39c93; max-width:34ch; text-wrap:pretty; }
-#contact .contact-notes { margin-top:38px; display:flex; flex-direction:column; gap:14px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.04em; color:#7d766d; }
-#contact .contact-notes div { display:flex; gap:12px; align-items:baseline; }
-#contact .contact-notes span { color:var(--accent); }
-#contact form { display:grid; grid-template-columns:1fr 1fr; gap:22px 20px; }
-#contact label { display:flex; flex-direction:column; gap:9px; }
-#contact label > span { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; color:#8d867d; }
-#contact input, #contact textarea, #contact select { background:#131110; border:1px solid #2a2723; border-radius:2px; color:#efe9e1; font-family:'Space Grotesk',sans-serif; font-size:15px; padding:14px 15px; transition:border-color .18s; }
-#contact select { appearance:none; }
-#contact select option { background:#17150f; color:#efe9e1; }
-#contact textarea { line-height:1.6; resize:vertical; }
-#contact input:focus, #contact textarea:focus, #contact select:focus { outline:none; border-color:var(--accent); }
-#contact ::placeholder { color:#57524c; }
-#contact .full { grid-column:1 / -1; }
-#contact .contact-actions { display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin-top:4px; }
-#contact button { background:var(--accent); border:none; border-radius:2px; color:#140f06; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:500; letter-spacing:.16em; padding:17px 34px; transition:background .18s, transform .12s; }
-#contact button:hover { background:oklch(0.84 0.13 62); }
-#contact button:active { transform:translateY(1px); }
-#contact button[disabled] { opacity:.6; cursor:default; }
-#contact .contact-status { font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.04em; }
-#contact .contact-fine { font-family:'IBM Plex Mono',monospace; font-size:11px; line-height:1.7; letter-spacing:.04em; color:#615b53; border-top:1px solid #1e1b18; padding-top:18px; }
-#contact .contact-fine a { color:var(--accent); text-decoration:none; }
-#contact .contact-fine a:hover { color:oklch(0.86 0.11 62); }
-#contact .btn { border-color:#2a2723; color:#efe9e1; }
-#contact .btn:hover { border-color:var(--accent); color:var(--accent); }
-@media (max-width:820px) {
-  #contact { padding:80px 22px 90px; }
-  #contact .contact-grid { grid-template-columns:1fr; gap:44px; }
-  #contact form { grid-template-columns:1fr; }
-  #contact h2 { font-size:40px; }
-}
+    button.disabled = true;
+    button.textContent = "SENDING\u2026";
+    say("", "transparent");
+
+    fetch(ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } })
+      .then(function (res) {
+        if (!res.ok) throw new Error("bad status");
+        form.reset();
+        say("Sent — thank you. A reply is on the way.", "oklch(0.8 0.13 150)");
+      })
+      .catch(function () {
+        say("Something went wrong. Please try again shortly.", "oklch(0.72 0.16 25)");
+      })
+      .then(function () {
+        button.disabled = false;
+        button.textContent = "SEND MESSAGE";
+      });
+  });
+})();
+</script>
+
+</main>
+</body></html>
