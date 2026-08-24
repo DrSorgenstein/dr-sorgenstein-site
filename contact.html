@@ -1,0 +1,102 @@
+/* ============================================================
+   Dr Sorgenstein — shared site stylesheet
+   Base styles for privacy.html / contact.html, plus the
+   contact form styles.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #06040c;
+  color: #ece7f3;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+a { color: #7fe6d9; text-decoration: none; }
+a:hover { color: #f5c97a; }
+
+.section {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 90px 32px 110px;
+}
+
+.section-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: #7fe6d9;
+  margin-bottom: 22px;
+}
+
+.section h2 {
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.05;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  margin: 0 0 24px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.prose p {
+  margin: 0 0 18px;
+  line-height: 1.75;
+  color: rgba(236, 231, 243, .72);
+}
+.prose p:last-child { margin-bottom: 0; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(127, 230, 217, .18);
+  background: transparent;
+  color: #ece7f3;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  letter-spacing: .12em;
+  transition: border-color .18s, color .18s;
+}
+.btn:hover { border-color: #7fe6d9; color: #7fe6d9; }
+
+/* ---------------- Contact form ---------------- */
+
+#contact { --accent: oklch(0.76 0.15 62); background:#0c0b0a; color:#efe9e1; font-family:'Space Grotesk',Helvetica,sans-serif; padding:110px 32px 130px; display:flex; justify-content:center; }
+#contact .contact-grid { width:100%; max-width:1080px; display:grid; grid-template-columns:minmax(240px,340px) 1fr; gap:72px; align-items:start; }
+#contact .section-kicker { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.22em; color:var(--accent); margin-bottom:22px; }
+#contact h2 { font-size:52px; line-height:.98; font-weight:700; letter-spacing:-.02em; margin:0 0 24px; text-wrap:balance; }
+#contact .contact-lede { font-size:16px; line-height:1.65; color:#a39c93; max-width:34ch; text-wrap:pretty; }
+#contact .contact-notes { margin-top:38px; display:flex; flex-direction:column; gap:14px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.04em; color:#7d766d; }
+#contact .contact-notes div { display:flex; gap:12px; align-items:baseline; }
+#contact .contact-notes span { color:var(--accent); }
+#contact form { display:grid; grid-template-columns:1fr 1fr; gap:22px 20px; }
+#contact label { display:flex; flex-direction:column; gap:9px; }
+#contact label > span { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; color:#8d867d; }
+#contact input, #contact textarea, #contact select { background:#131110; border:1px solid #2a2723; border-radius:2px; color:#efe9e1; font-family:'Space Grotesk',sans-serif; font-size:15px; padding:14px 15px; transition:border-color .18s; }
+#contact select { appearance:none; }
+#contact select option { background:#17150f; color:#efe9e1; }
+#contact textarea { line-height:1.6; resize:vertical; }
+#contact input:focus, #contact textarea:focus, #contact select:focus { outline:none; border-color:var(--accent); }
+#contact ::placeholder { color:#57524c; }
+#contact .full { grid-column:1 / -1; }
+#contact .contact-actions { display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin-top:4px; }
+#contact button { background:var(--accent); border:none; border-radius:2px; color:#140f06; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:500; letter-spacing:.16em; padding:17px 34px; transition:background .18s, transform .12s; }
+#contact button:hover { background:oklch(0.84 0.13 62); }
+#contact button:active { transform:translateY(1px); }
+#contact button[disabled] { opacity:.6; cursor:default; }
+#contact .contact-status { font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.04em; }
+#contact .contact-fine { font-family:'IBM Plex Mono',monospace; font-size:11px; line-height:1.7; letter-spacing:.04em; color:#615b53; border-top:1px solid #1e1b18; padding-top:18px; }
+#contact .contact-fine a { color:var(--accent); text-decoration:none; }
+#contact .contact-fine a:hover { color:oklch(0.86 0.11 62); }
+#contact .btn { border-color:#2a2723; color:#efe9e1; }
+#contact .btn:hover { border-color:var(--accent); color:var(--accent); }
+@media (max-width:820px) {
+  #contact { padding:80px 22px 90px; }
+  #contact .contact-grid { grid-template-columns:1fr; gap:44px; }
+  #contact form { grid-template-columns:1fr; }
+  #contact h2 { font-size:40px; }
+}
